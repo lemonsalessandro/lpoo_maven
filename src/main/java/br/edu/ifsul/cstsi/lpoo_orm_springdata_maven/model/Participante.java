@@ -2,12 +2,13 @@ package br.edu.ifsul.cstsi.lpoo_orm_springdata_maven.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="participantes")
 public class Participante {
 
-    //NESSA CLASSE UM PARTICIPANTE RECEBE TODOS ATRIBUTOS DE SUA CLASSE E TAMBÉM
-    // OS DA CLASSE ENDEREÇO QUE FOI CRIADA E ESTÁ SENDO IMPORTADA PARA PARTICIPANTE.
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,7 +17,13 @@ public class Participante {
     private String senha;
     private String email;
     private String telefone;
+
+    //IMPORTAÇÃO DOS ATRIBUTOS DA CLASSE ENDEREÇO PARA A CLASSE PARTICIPANTE.
     @Embedded
     private Endereco endereco;
 
+
+    //LIGAÇÃO DE UM PARTICIPANTE PARA NENHUM OU MUITOS LANCES
+    @OneToMany(mappedBy = "participante")
+    private List<Lance> lances;
 }
