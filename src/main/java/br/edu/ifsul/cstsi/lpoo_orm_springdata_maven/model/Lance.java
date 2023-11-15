@@ -17,4 +17,8 @@ public class Lance {
     @ManyToOne
     @JoinColumn(name = "participante_id", referencedColumnName = "id")
     private Participante participante;
+
+    @ManyToOne
+    @JoinColumn(name = "itensLeilao_id", referencedColumnName = "id")
+    private ItemLeilao itemLance;
 }
