@@ -18,5 +18,9 @@ public class ItemLeilao {
     private int arrematado;
 
     @OneToMany(mappedBy = "itemLance")
-    List<Lance> lances;
+    private List<Lance> lances;
+
+    @ManyToOne
+    @JoinColumn(name="leilao_id", referencedColumnName = "id")
+    private Leilao leilao;
 }
