@@ -9,7 +9,6 @@ import java.util.List;
 @Table(name="participantes")
 public class Participante {
 
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
@@ -18,12 +17,9 @@ public class Participante {
     private String email;
     private String telefone;
 
-    //IMPORTAÇÃO DOS ATRIBUTOS DA CLASSE ENDEREÇO PARA A CLASSE PARTICIPANTE.
     @Embedded
     private Endereco endereco;
 
-
-    //LIGAÇÃO DE UM PARTICIPANTE PARA NENHUM OU MUITOS LANCES
     @OneToMany(mappedBy = "participante")
     private List<Lance> lances;
 }
