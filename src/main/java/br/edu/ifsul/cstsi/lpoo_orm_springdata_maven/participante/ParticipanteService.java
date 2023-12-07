@@ -31,17 +31,15 @@ public class ParticipanteService {
             Participante db = optional.get();
             db.setNome(participante.getNome());
             db.setEmail(participante.getEmail());
-
-
-
+            db.setTelefone(participante.getTelefone());
+            db.setLogin(participante.getLogin());
+            db.setSenha(participante.getSenha());
             rep.save(db);
             return db;
         } else {
             return null;
         }
     }
-
-
 
     public Participante getParticipanteByID(Long id) {
         Optional<Participante> optional = rep.findById(id);

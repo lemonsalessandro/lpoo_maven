@@ -12,7 +12,6 @@ import java.util.List;
 
 @Entity
 @Table(name="participantes")
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -43,7 +42,6 @@ public class Participante {
                 ", email='" + email + '\'' +
                 ", telefone='" + telefone + '\'' +
                 ", endereco=" + endereco +
-                ", lances=" + lances +
-                '}';
+                '}' + "\n";
     }
 }

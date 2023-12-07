@@ -21,7 +21,7 @@ public class ParticipanteController {
             System.out.print("\n\"-------  MENU PARTICIPANTE -------\"");
             System.out.print(
                     """
-    
+                        
                         1. Inserir Participante
                         2. Atualizar Participante
                         3. Excluir Participante
@@ -30,12 +30,13 @@ public class ParticipanteController {
                         6. Buscar por nome
                         7. Buscar por email
                         0. Sair:\s""");
+
             opcao = input.nextInt();
             input.nextLine();
             switch (opcao) {
                 case 1 -> insert();
                 case 2 -> update();
-                case 3 -> delete();
+                case 3 -> excluir();
                 case 4 -> select();
                 case 5 -> selectParticipanteByID();
                 case 6 -> selectParticipanteByNome();
@@ -65,34 +66,65 @@ public class ParticipanteController {
         System.out.println("Participante cadastrado!" + participanteService.insert(participante));
     }
 
-    private static void update() {
-        System.out.println("\n++++++ Alterar partiripante ++++++");
+    private static void update(){
         Participante participante;
+        System.out.println("\n--------  Atualizar Participante  --------");
         int opcao = 0;
         do {
-            System.out.print("\nDigite o ID do participante (Zero p/sair): ");
-            long codigo = input.nextLong();
+            System.out.print("Digite o codigo do participante (0 = sair): ");
+            long id = input.nextLong();
             input.nextLine();
-            if (codigo == 0) {
+            if (id == 0){
                 opcao = 0;
             } else {
-                participante = participanteService.getParticipanteByID(codigo);
-                if (participante == null) {
-                    System.out.println("ID inválido.");
+                participante = participanteService.getParticipanteByID(id);
+                if (participante == null){
+                    System.out.println("Codigo inválido");
                 } else {
-                    System.out.println("Nome: " + participante.getNome());
-                    System.out.print("Alterar? (0-sim/1-não) ");
+                    System.out.println("Nome: "+participante.getNome());
+                    System.out.print("Deseja alterar o nome? (0-sim/1-não) ");
                     if(input.nextInt() == 0){
                         input.nextLine();
-                        System.out.println("Digite o novo nome do participante: ");
+                        System.out.print("Digite o novo nome: ");
                         participante.setNome(input.nextLine());
                     }
+                    System.out.println("Email: "+participante.getEmail());
+                    System.out.print("Deseja alterar o email? (0-sim/1-não) ");
+                    if(input.nextInt() == 0){
+                        input.nextLine();
+                        System.out.print("Digite o novo email: ");
+                        participante.setEmail(input.nextLine());
+                    }
 
+                    System.out.println("Login: "+ participante.getLogin());
+                    System.out.print("Deseja alterar o login? (0-sim/1-não) ");
+                    if(input.nextInt() == 0){
+                        input.nextLine();
+                        System.out.print("Digite o novo login: ");
+                        participante.setLogin((input.nextLine()));
+                    }
 
+                    System.out.println("Senha: "+participante.getSenha());
+                    System.out.print("Deseja alterar a senha? (0-sim/1-não) ");
+                    if(input.nextInt() == 0){
+                        input.nextLine();
+                        System.out.print("Digite a nova senha: ");
+                        participante.setSenha(input.nextLine());
+                    }
 
+                    System.out.println("Telefone: "+participante.getTelefone());
+                    System.out.print("Deseja alterar o telefone? (0-sim/1-não) ");
+                    if(input.nextInt() == 0){
+                        input.nextLine();
+                        System.out.print("Digite o novo Telefone: ");
+                        participante.setTelefone(input.nextLine());
+                    }
 
-
-
+                    if(participanteService.update(participante) != null){
+                        System.out.println("Participante atualizado com sucesso. "+ participanteService.getParticipanteByID(participante.getId()));
+                    } else {
+                        System.out.println("Não foi possivel atualizar o participante");
+                    }
                     opcao = 1;
                 }
             }
@@ -100,8 +132,8 @@ public class ParticipanteController {
     }
 
 
-    private static void delete() {
-        System.out.println("\n++++++ Excluir participante ++++++");
+    private static void excluir() {
+        System.out.println("\n++++++ Excluir um participante ++++++");
         Participante participante;
         int opcao = 0;
         do {
@@ -113,23 +145,21 @@ public class ParticipanteController {
             } else if(codigo > 0){
                 participante = participanteService.getParticipanteByID(codigo);
                 if (participante == null) {
-                    System.out.println("ID inválido.");
+                    System.out.println("Código inválido.");
                 } else {
                     System.out.println(participante);
                     System.out.print("Excluir este participante? (0-sim/1-não) ");
                     if (input.nextInt() == 0) {
                         input.nextLine();
-                        input.nextLine();
                         participanteService.delete(participante.getId());
-                        System.out.println("Participante excluído com sucesso: " + participante);
+                        System.out.println("Participante excluído com sucesso:" + participante);
                     }
                 }
             } else {
-                System.out.println("Código inválido!!!");
+                System.out.println("Digite um código válido!!!");
             }
         } while (opcao != 0);
     }
-
 
     private static void select() {
         System.out.println("\nLista de participantes cadastrados:\n" + participanteService.getParticipantes());

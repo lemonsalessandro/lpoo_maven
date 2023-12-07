@@ -12,4 +12,6 @@ public interface ItemLeilaoRepository extends JpaRepository<ItemLeilao, Long> {
     @Query(value = "SELECT i FROM ItemLeilao i where i.titulo_item like ?1")
     List<ItemLeilao> findByNome(String nome);
 
+
+
 }
