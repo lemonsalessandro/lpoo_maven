@@ -34,12 +34,12 @@ public class ParticipanteController {
             input.nextLine();
             switch (opcao) {
                 case 1 -> insert();
-//                case 2 -> update();
-//                case 3 -> delete();
+                case 2 -> update();
+                case 3 -> delete();
                 case 4 -> select();
                 case 5 -> selectParticipanteByID();
-//                case 6 -> selectByName();
-//                case 7 -> selectByEmail();
+                case 6 -> selectParticipanteByNome();
+                case 7 -> selectParticipanteByEmail();
                 default -> {
                     if (opcao != 0) System.out.println("Opção inválida.");
                 }
@@ -64,6 +64,72 @@ public class ParticipanteController {
 //        participante.setEndereco(input.nextLine());
         System.out.println("Participante cadastrado!" + participanteService.insert(participante));
     }
+
+    private static void update() {
+        System.out.println("\n++++++ Alterar partiripante ++++++");
+        Participante participante;
+        int opcao = 0;
+        do {
+            System.out.print("\nDigite o ID do participante (Zero p/sair): ");
+            long codigo = input.nextLong();
+            input.nextLine();
+            if (codigo == 0) {
+                opcao = 0;
+            } else {
+                participante = participanteService.getParticipanteByID(codigo);
+                if (participante == null) {
+                    System.out.println("ID inválido.");
+                } else {
+                    System.out.println("Nome: " + participante.getNome());
+                    System.out.print("Alterar? (0-sim/1-não) ");
+                    if(input.nextInt() == 0){
+                        input.nextLine();
+                        System.out.println("Digite o novo nome do participante: ");
+                        participante.setNome(input.nextLine());
+                    }
+
+
+
+
+
+
+                    opcao = 1;
+                }
+            }
+        } while (opcao != 0);
+    }
+
+
+    private static void delete() {
+        System.out.println("\n++++++ Excluir participante ++++++");
+        Participante participante;
+        int opcao = 0;
+        do {
+            System.out.print("\nDigite o código do participante (Zero p/sair): ");
+            long codigo = input.nextLong();
+            input.nextLine();
+            if (codigo == 0) {
+                opcao = 0;
+            } else if(codigo > 0){
+                participante = participanteService.getParticipanteByID(codigo);
+                if (participante == null) {
+                    System.out.println("ID inválido.");
+                } else {
+                    System.out.println(participante);
+                    System.out.print("Excluir este participante? (0-sim/1-não) ");
+                    if (input.nextInt() == 0) {
+                        input.nextLine();
+                        input.nextLine();
+                        participanteService.delete(participante.getId());
+                        System.out.println("Participante excluído com sucesso: " + participante);
+                    }
+                }
+            } else {
+                System.out.println("Código inválido!!!");
+            }
+        } while (opcao != 0);
+    }
+
 
     private static void select() {
         System.out.println("\nLista de participantes cadastrados:\n" + participanteService.getParticipantes());
@@ -93,8 +159,8 @@ public class ParticipanteController {
         }
     }
 
-    private static void selectclientesByEmail() {
-        System.out.print("Digite o email do cliente: ");
+    private static void selectParticipanteByEmail() {
+        System.out.print("Digite o email do participante: ");
         String email = input.next();
         System.out.println("Chave de pesquisa: " + email);
         List<Participante> participantes = participanteService.getParticipanteByEmail(email + "%");
@@ -104,6 +170,4 @@ public class ParticipanteController {
             System.out.println(participantes);
         }
     }
-
-
 }
