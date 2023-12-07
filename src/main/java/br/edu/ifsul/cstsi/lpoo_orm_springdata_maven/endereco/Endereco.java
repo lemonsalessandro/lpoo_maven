@@ -1,4 +1,4 @@
-package br.edu.ifsul.cstsi.lpoo_orm_springdata_maven.model;
+package br.edu.ifsul.cstsi.lpoo_orm_springdata_maven.endereco;
 
 
 import jakarta.persistence.Embeddable;
